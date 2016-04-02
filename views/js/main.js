@@ -503,7 +503,12 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
+  console.log("======================= New call to updatePositions =======================");
   for (var i = 0; i < items.length; i++) {
+    console.log("----");
+    console.log("i = " + i);
+    console.log("i % 5 = " + (i % 5));
+    console.log("document.body.scrollTop = " + document.body.scrollTop);
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
