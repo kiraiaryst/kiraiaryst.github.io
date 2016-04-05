@@ -470,7 +470,8 @@ var resizePizzas = function(size) {
         randomPizzas[i].style.width = newWidth + %;
     }
   }
-
+  
+  changeSliderLabel(size);
   changePizzaSizes(size);
 
   // User Timing API is awesome
