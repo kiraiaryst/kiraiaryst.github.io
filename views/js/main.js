@@ -450,14 +450,28 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
-    for (var i = 0; i < randomPizzas.length; i++) {
-      var dx = determineDx(randomPizzas[i], size);
-      var newwidth = (randomPizzas[i].offsetWidth + dx) + 'px';
-      randomPizzas[i].style.width = newwidth;
+    var newWidth = null;
+    switch(size) {
+      case "1":
+        newWidth = '25%';
+        break;
+      case "2":
+        newWidth = '33.33%';
+        break;
+      case "3":
+        newWidth = '50%';
+        break;
+      default:
+        console.log("bug in sizeSwitcher");
+    }
+    // Loop through pizzas and change their widths.
+    var pizzaArrayLength = pizzaArray.length;
+    for (var i = 0; i < pizzaArrayLength; i++) {
+        pizzaArray[i].style.width = newWidth;
     }
   }
 
+  changeSliderLabel(size);
   changePizzaSizes(size);
 
   // User Timing API is awesome
