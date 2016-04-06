@@ -522,7 +522,7 @@ function updatePositions() {
   var scrollT = document.body.scrollTop / 1250;
   for (var i = 0; i < 35; i++) {
     var phase = Math.sin(scrollT + (i % 5));
-    items[i].style.transform = translateX();
+    items[i].style.transform = translateX(+ 100 * phase + 'px');
   }
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
