@@ -520,7 +520,7 @@ function updatePositions() {
   var items = document.querySelectorAll('.mover');
   var phase;
   var scrollT = document.body.scrollTop / 1250;
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 35; i++) {
     var phase = Math.sin(scrollT + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
