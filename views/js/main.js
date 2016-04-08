@@ -523,7 +523,7 @@ function updatePositions() {
   var scrollT = document.body.scrollTop / 1250;
   for (var i = 0; i < 20; i++) {
     var phase = Math.sin(scrollT + (i % 5));
-    var left = -items[i].basicLeft + 100 * phase + 'px';
+    var left = -items[i].basicLeft + 1000 * phase + 'px';
         items[i].style.transform = "translateX("+left+") translateZ(0)";
   }
   
