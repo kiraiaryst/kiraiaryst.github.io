@@ -517,7 +517,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-  var items = document.querySelectorAll(".mover");
+  var items = document.querySelectorAll('.mover');
   var phase;
   var scrollT = document.body.scrollTop / 1250;
   for (var i = 0; i < 35; i++) {
