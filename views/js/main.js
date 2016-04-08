@@ -369,6 +369,8 @@ var pizzaElementGenerator = function(i) {
 
   pizzaContainer  = document.createElement("div");
   pizzaImageContainer = document.createElement("div");
+  pizzaContainer.style.width = "33.33%";
+  pizzaContainer.style.height = "325px";
   pizzaImage = document.createElement("img");
   pizzaDescriptionContainer = document.createElement("div");
 
