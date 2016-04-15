@@ -502,6 +502,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
   var items = document.getElementsByClassName('mover');
+  //Declared var phase out of the loop, took "document.body.scrollTop / 1250" to a separate variable.
   var phase;
   var count = 5;
   var scrollT = document.body.scrollTop / 1250;
@@ -527,7 +528,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 31; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
