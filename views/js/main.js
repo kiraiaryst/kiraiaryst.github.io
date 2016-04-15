@@ -497,13 +497,16 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
-  var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+  var items = document.getElementsByClassName('mover');
+  var phase;
+  var count = 5;
+  var scrollT = document.body.scrollTop / 1250;
+  for (var i = 0; i < 31; i++) {
+    var phase = Math.sin(scrollT + (i % count));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
