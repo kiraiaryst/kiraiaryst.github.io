@@ -507,6 +507,7 @@ function updatePositions() {
   var phase;
   var count = 5;
   var scrollT = document.body.scrollTop / 1250;
+  var left;
   for (var i = 0; i < 31; i++) {
     var phase = Math.sin(scrollT + (i % count));
     var left = -items[i].basicLeft + 1000 * phase + 'px';
