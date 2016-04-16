@@ -509,7 +509,8 @@ function updatePositions() {
   var scrollT = document.body.scrollTop / 1250;
   for (var i = 0; i < 31; i++) {
     var phase = Math.sin(scrollT + (i % count));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    var left = -items[i].basicLeft + 1000 * phase + 'px';
+    items[i].style.transform = "translateX("+left+") translateZ(0)";
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -532,6 +533,7 @@ window.addEventListener('scroll', function() {
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  //decreased the number of pizzas to 31 istead of 200
   for (var i = 0; i < 31; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
