@@ -451,6 +451,7 @@ var resizePizzas = function(size) {
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
   	var dx = determineDx(document.querySelector(".randomPizzaContainer"), size);
+  	//moved the dx out of the for loop
     var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';
   // Selects all the .randomPizzaContainer elements in the DOM
     var changingPizzas = document.getElementsByClassName("randomPizzaContainer");
@@ -512,7 +513,9 @@ function updatePositions() {
   var phase;
   var count = 5;
   var scrollT = document.body.scrollTop / 1250;
-  for (var i = 31; i--;) {
+  for (var i = 31; i--;) 
+  //testing the for loop in reverse for faster code 
+  {
     var phase = Math.sin(scrollT + (i % count));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
 
@@ -539,7 +542,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   //decreased the number of pizzas to 31 istead of 200
-  for (var i = 31; i--;) {
+  for (var i = 31; i--;) 
+    //testing the for loop in reverse for faster code 
+  {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizzanew.png";
