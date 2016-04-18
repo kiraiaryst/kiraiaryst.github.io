@@ -1,6 +1,6 @@
 # Website Optimization
 
-To view the website live, open (http://kiraiaryst.github.io/).
+To view the website live, open http://kiraiaryst.github.io/.
 
 ## Optimizing PageSpeed Score for index.html
 
