@@ -26,7 +26,8 @@ After making changes the score increased to 94/100 for mobile and 95/100 for des
 1. Reduced the number of pizza elemenets to 31 and change a for loop to reverse one.
 
 ```
-<!-- language: lang-js -->//Generates the sliding pizzas when the page loads.
+<!-- language: lang-js -->
+//Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
