@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
-});
-```
+});```
+
 2. Optimized the updatePositions function loops.
  * Moved the calculation of "document.body.scrollTop / 1250" outside of the loop.
  * Changed document.querySelectorAll() to getElementsByClassName for faster access of the elements.
