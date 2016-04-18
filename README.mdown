@@ -75,5 +75,14 @@ function updatePositions() {
 
   }
 ```
-3.
+#### *Optimized Animation*
+Added requestAnimationFrame for updatePositions for single reflow and repaint.
+Telling the browser that I wish to perform an animation and request that the browser call a specified function to update an animation before the next repaint.
+
+// runs updatePositions on scroll
+//Added requestAnimationFrame for updatePositions
+window.addEventListener('scroll', function() {
+    window.requestAnimationFrame(updatePositions);
+});
+
 ### Time to Resize Pizzas
