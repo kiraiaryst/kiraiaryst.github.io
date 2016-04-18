@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
   updatePositions();
 });
 ```
-
 2. Optimized the updatePositions function loops.
 
  * Moved the calculation of "document.body.scrollTop / 1250" outside of the loop.
@@ -70,6 +69,5 @@ function updatePositions() {
 
   }
 ```
-
 3.
 ### Time to Resize Pizzas
