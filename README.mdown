@@ -25,7 +25,8 @@ After making changes the score increased to 94/100 for mobile and 95/100 for des
 
 1. Reduced the number of pizza elemenets to 31 and change a for loop to reverse one.
 
-```//Generates the sliding pizzas when the page loads.
+```
+        //Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
@@ -41,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
-});```
+});
+```
 
 2. Optimized the updatePositions function loops.
  * Moved the calculation of "document.body.scrollTop / 1250" outside of the loop.
