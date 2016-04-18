@@ -44,12 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 2. Optimized the updatePositions function loops.
-
  * Moved the calculation of "document.body.scrollTop / 1250" outside of the loop.
  * Changed document.querySelectorAll() to getElementsByClassName for faster access of the elements.
 
-```
-// Moves the sliding background pizzas based on scroll position
+```// Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
