@@ -27,6 +27,7 @@ After making changes the score increased to 94/100 for mobile and 95/100 for des
 
 ```
 <!-- language: lang-js -->
+
 //Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
