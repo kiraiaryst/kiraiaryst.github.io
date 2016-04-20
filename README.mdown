@@ -88,3 +88,9 @@ window.addEventListener('scroll', function() {
 ```
 
 ### Time to Resize Pizzas
+
+
+* Moved var dx out of the for loop and selected only the first .randomPizzaContainer element in the document (by using querySelector instead of querySelectorAll).
+* Moved var newwidth out of the loop and selected only the first .randomPizzaContainer element in the document (by using querySelector instead of querySelectorAll).
+* Created var changingPizzas to store all the .randomPizzaContainer elements in the document.
+* Applied the reverse for loop.
