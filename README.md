@@ -1,73 +1,109 @@
-## Website Performance Optimization portfolio project
+# Website Optimization
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+To view the website live, open http://kiraiaryst.github.io/.
 
-To get started, check out the repository, inspect the code,
+## Optimizing PageSpeed Score for index.html
 
-### Getting started
+Originally the index page had a PageSpeed insights score of 35/100 for mobile and 47/100 for the desktop. To optimize it, the following modifications were made:
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+1. Eliminated render-blocking CSS:
+Added the `media="print"` HTML attribute for the external style sheet for print styles.
+Inlined the CSS by including it into the HTML document.
 
-Some useful tips to help you get started:
+2. Eliminated render-blocking JavaScript:
+Added the HTML async attribute to GA script.
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+3. Resized images which were too large.
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
+4. Added media="none" attribute for fonts.
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to make your local server accessible remotely.
+After making changes the score increased to 94/100 for mobile and 95/100 for desktop.
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ngrok http 8080
-  ```
+## Optimizing the Frame Rate
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
+### Frame-rate at 60fps when Scrolling
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+#### *Reduced the number of pizza elemenets to 31 and changed a for loop to a reverse one.*
 
-####Part 2: Optimize Frames per Second in pizza.html
+```js
+//Generates the sliding pizzas when the page loads.
+document.addEventListener('DOMContentLoaded', function() {
+  var cols = 8;
+  var s = 256;
+  //decreased the number of pizzas to 31 istead of 200
+  for (var i = 31; i--;)
+    //testing the for loop in reverse for faster code
+  {
+    var elem = document.createElement('img');
+    elem.className = 'mover';
+    elem.src = "images/pizzanew.png";
+    elem.basicLeft = (i % cols) * s;
+    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    document.querySelector("#movingPizzas1").appendChild(elem);
+  }
+  updatePositions();
+});
+```
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+#### *Reduced Browser Paint Events*
+Removed the `elem.style.height` and `elem.style.width` from `document.addEventListener`, resized and used the new pizza image 100px x 100px to prevent the browser from resizing it. 
+Made necessary changes in the CSS file (`.mover` property changed to width: 100px;).
 
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
 
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
+#### *Optimized the updatePositions function loops.*
 
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
+ * Moved the calculation of `document.body.scrollTop / 1250` outside of the loop.
+ * Changed `document.querySelectorAll()` to `getElementsByClassName` for faster access of the elements.
 
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+```js
+// Moves the sliding background pizzas based on scroll position
 
-### Sample Portfolios
+function updatePositions() {
+  frame++;
+  window.performance.mark("mark_start_frame");
+  //changed .querySelectorAll to getElementsByClassName
+  var items = document.getElementsByClassName('mover');
+  //Declared var phase out of the loop, took "document.body.scrollTop / 1250" to a separate variable.
+  var phase;
+  var count = 5;
+  var scrollT = document.body.scrollTop / 1250;
+  for (var i = 31; i--;)
+  //testing the for loop in reverse for faster code
+  {
+    var phase = Math.sin(scrollT + (i % count));
+    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
 
-Feeling uninspired by the portfolio? Here's a list of cool portfolios I found after a few minutes of Googling.
+  }
+```
+#### *Optimized Animation*
+Added `requestAnimationFrame` for `updatePositions` for single reflow and repaint.
+Telling the browser that I wish to perform an animation and request that the browser call a specified function to update an animation before the next repaint.
 
-* <a href="http://www.reddit.com/r/webdev/comments/280qkr/would_anybody_like_to_post_their_portfolio_site/">A great discussion about portfolios on reddit</a>
-* <a href="http://ianlunn.co.uk/">http://ianlunn.co.uk/</a>
-* <a href="http://www.adhamdannaway.com/portfolio">http://www.adhamdannaway.com/portfolio</a>
-* <a href="http://www.timboelaars.nl/">http://www.timboelaars.nl/</a>
-* <a href="http://futoryan.prosite.com/">http://futoryan.prosite.com/</a>
-* <a href="http://playonpixels.prosite.com/21591/projects">http://playonpixels.prosite.com/21591/projects</a>
-* <a href="http://colintrenter.prosite.com/">http://colintrenter.prosite.com/</a>
-* <a href="http://calebmorris.prosite.com/">http://calebmorris.prosite.com/</a>
-* <a href="http://www.cullywright.com/">http://www.cullywright.com/</a>
-* <a href="http://yourjustlucky.com/">http://yourjustlucky.com/</a>
-* <a href="http://nicoledominguez.com/portfolio/">http://nicoledominguez.com/portfolio/</a>
-* <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
-* <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
+```js
+// runs updatePositions on scroll
+//Added requestAnimationFrame for updatePositions
+window.addEventListener('scroll', function() {
+    window.requestAnimationFrame(updatePositions);
+});
+```
+
+### Time to Resize Pizzas
+
+* Moved `var dx` out of the for loop and selected only the first `.randomPizzaContainer` element in the document (by using `querySelector` instead of `querySelectorAll`).
+* Moved var newwidth out of the loop and selected only the first `.randomPizzaContainer` element in the document (by using `querySelector` instead of `querySelectorAll`).
+* Created `var changingPizzas` to store all the `.randomPizzaContainer` elements in the document.
+* Applied the reverse for loop.
+
+```js
+function changePizzaSizes(size) {
+  	var dx = determineDx(document.querySelector(".randomPizzaContainer"), size);
+  	//moved the dx out of the for loop
+    var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';
+  // Selects all the .randomPizzaContainer elements in the DOM
+    var changingPizzas = document.getElementsByClassName("randomPizzaContainer");
+    //declared document.getElementsByClassName("randomPizzaContainer") in a separate variable
+    for (var i = changingPizzas.length; i--;) {
+      changingPizzas[i].style.width = newwidth;
+    }
+  }
+```
