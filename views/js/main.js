@@ -467,10 +467,10 @@ var resizePizzas = function(size) {
     // Iterates through pizza elements on the page and changes their widths
     function changePizzaSizes(size) {
         var domAccess = document.querySelector(".randomPizzaContainer");
+        //Cached the DOM call into a variable.
         var dx = determineDx(domAccess, size);
         //moved the dx out of the for loop
         var newwidth = (domAccess.offsetWidth + dx) + 'px';
-        // Selects all the .randomPizzaContainer elements in the DOM
         var changingPizzas = document.getElementsByClassName("randomPizzaContainer");
         //declared document.getElementsByClassName("randomPizzaContainer") in a separate variable
         for (var i = changingPizzas.length; i--;) {
@@ -531,6 +531,7 @@ function updatePositions() {
     var count = 5;
     var scrollT = document.body.scrollTop / 1250;
     for (var i = items.length; i--;)
+    //Used the .length approach to avoid hardcoding the number of iterations.
     //testing the for loop in reverse for faster code 
     {
         var phase = Math.sin(scrollT + (i % count));
