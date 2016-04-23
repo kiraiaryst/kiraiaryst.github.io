@@ -529,7 +529,7 @@ function updatePositions() {
     var phase;
     var count = 5;
     var scrollT = document.body.scrollTop / 1250;
-    for (var i = 31; i--;)
+    for (var i = items.length; i--;)
     //testing the for loop in reverse for faster code 
     {
         var phase = Math.sin(scrollT + (i % count));
